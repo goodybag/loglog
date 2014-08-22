@@ -1,6 +1,6 @@
 # Loglog - Hierarchical logging
 
-> Loglog is an extensible, hierarchical logger with sensible transport methods for node.js and the browser
+> Loglog is an extensible, hierarchical logger with sensible transport methods for node.js and _soon_ the browser
 
 __Install__
 
@@ -46,7 +46,7 @@ logger.info('Starting...');
 
 ## Docs
 
-Loglog is all about hierarchy. You can always inherit from a logger by calling [.create](#create) on the logging instance. In fact, the loglog module actually exports a base instance of itself, so you can start using it right away with defaults (with no component specified). That means the loglog module API is identical to logger instance API. Yay!
+Loglog is all about hierarchy. You can always inherit from a logger by calling [.create](#create-component-options-) on the logging instance. In fact, the loglog module actually exports a base instance of itself, so you can start using it right away with defaults (with no component specified). That means the loglog module API is identical to logger instance API. Yay!
 
 ### Methods
 
@@ -78,10 +78,10 @@ __Options:__
 
 The following properties are inherited:
 
-* [parents](parents) (via appends parent.component to parent.parents)
-* [options.data](options.data)
-* [component](component) (if the component isn't specified)
-* [transport](transport)
+* [parents](#parents) (via appends parent.component to parent.parents)
+* [options.data](#options)
+* [component](#component) (if the component isn't specified)
+* [transport](#transport)
 
 __Example:__
 
@@ -137,11 +137,11 @@ logger.info('Hi, I am a %s and I %s years old.', 'doge', 3, 'Goodbye', { a: true
 
 #### ```warn( ... )```
 
-Same as [info](#info) but `entry.level` set to `warn`.
+Same as [info](#info--) but `entry.level` set to `warn`.
 
 #### ```error( ... )```
 
-Same as [info](#info) but `entry.level` set to `error`.
+Same as [info](#info--) but `entry.level` set to `error`.
 
 ### Properties
 
@@ -159,8 +159,8 @@ List of parent components (String Array).
 
 #### ```options```
 
-Options object passed to the logger [create](#create).
+Options object passed to the logger [create](#create-component-options-).
 
 #### ```inheritableOptions```
 
-List of [options](#options) keys that will be inherited during [create](#create).
+List of [options](#options) keys that will be inherited during [create](#create-component-options-).
