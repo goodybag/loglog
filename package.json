@@ -1,0 +1,35 @@
+{
+  "name": "loglog",
+  "version": "0.1.0",
+  "description": "Hierarchical logging with a clean API for node and the browser",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -b -R spec test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goodybag/loglog.git"
+  },
+  "keywords": [
+    "logging",
+    "browser",
+    "hierarchical"
+  ],
+  "author": "John Fawcett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goodybag/loglog/issues"
+  },
+  "homepage": "https://github.com/goodybag/loglog",
+  "dependencies": {
+    "cli-color": "^0.3.2",
+    "lodash": "^2.4.1",
+    "node-uuid": "^1.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4"
+  }
+}

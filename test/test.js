@@ -1,19 +1,124 @@
+var assert  = require('assert');
 var loglog  = require('../');
-var loggerA = loglog.create('Component A');
 
-loglog.info('Hey!');
-loggerA.info('Ho!');
-loggerA.warn('Ho!');
-loggerA.error('Ho!');
+describe( 'Basic Methods', function(){
+  var getAssertLoggerOfLevel = function( level ){
+    return loglog.create({
+      transport: function( entry ){
+        assert.equal( entry.level, level );
+      }
+    });
+  }
 
-loggerA.info('Hello, %s', 'Bob', {
-  a: true
-, b: 1
+  it ('.info', function(){
+    var logger = getAssertLoggerOfLevel('info');
+    assert.equal( typeof logger.info, 'function' );
+    logger.info('Test!');
+  });
+
+  it ('.warn', function(){
+    var logger = getAssertLoggerOfLevel('warn');
+    assert.equal( typeof logger.warn, 'function' );
+    logger.warn('Test!');
+  });
+
+  it ('.error', function(){
+    var logger = getAssertLoggerOfLevel('error');
+    assert.equal( typeof logger.error, 'function' );
+    logger.error('Test!');
+  });
+
+  it ('.info with formatted string', function(){
+    var loggerA = loglog.create({
+      transport: function( entry ){
+        assert.equal( entry.message, 'My name is Bob and I am 42.' );
+      }
+    });
+
+    var loggerB = loglog.create({
+      transport: function( entry ){
+        assert.equal( entry.message, 'My name is Bob and I am a Cat. I am super cool.' );
+      }
+    });
+
+    loggerA.info( 'My name is %s and I am %s.', 'Bob', 42 );
+    loggerB.info( 'My name is %s and I am a %s.', 'Bob', 'Cat', 'I am super cool.' );
+  });
 });
 
-var loggerB = loggerA.create('Component B');
+describe( 'Inheritance', function(){
+  it ('.create', function(){
+    var loggerA = loglog.create('Child A');
+    var loggerB = loggerA.create('Child B');
+    var loggerC = loggerB.create('Child C');
 
-loggerB.info('Hello, %s. You are %s years old!', 'Bill', 42, 'Something else?', {
-  a: false
-, b: 2
+    assert.equal( loggerA.component, 'Child A' );
+    assert.equal( loggerB.component, 'Child B' );
+    assert.equal( loggerC.component, 'Child C' );
+
+    assert.deepEqual( loggerA.parents, [] );
+    assert.deepEqual( loggerB.parents, ['Child A'] );
+    assert.deepEqual( loggerC.parents, ['Child A', 'Child B'] );
+  });
+
+  it ('.create with default data', function(){
+    var loggerA = loglog.create('Child A', {
+      data: { a: 1, b: 2 }
+    , transport: function( entry ){
+        assert.equal( entry.data.a, 1 );
+        assert.equal( entry.data.b, 2 );
+        assert.equal( entry.data.c, 3 );
+      }
+    });
+
+    var loggerB = loggerA.create('Child B', {
+      transport: function( entry ){
+        assert.equal( entry.data.a, 1 );
+        assert.equal( entry.data.b, 2 );
+        assert.equal( entry.data.c, 4 );
+      }
+    });
+
+    loggerA.info( 'ohai', { c: 3 } );
+    loggerB.info( 'ohai', { c: 4 } );
+  });
+
+  it ('.create with inheriting specific default data', function(){
+    var loggerA = loglog.create('Child A', {
+      data: { a: 1, b: 2 }
+    , childrenReceive: ['b']
+    });
+
+    var loggerB = loggerA.create('Child B', {
+      transport: function( entry ){
+        assert.equal( entry.data.a, undefined );
+        assert.equal( entry.data.b, 2 );
+        assert.equal( entry.data.c, 3 );
+      }
+    });
+
+    loggerB.info( 'ohai', { c: 3 } );
+  });
+
+  it ('.create with default data mixin with child default data', function(){
+    var loggerA = loglog.create('Child A', {
+      data: { a: 1, b: 2 }
+    , transport: function( entry ){
+        assert.equal( entry.data.a, 1 );
+        assert.equal( entry.data.b, 2 );
+      }
+    });
+
+    var loggerB = loggerA.create('Child B', {
+      data: { b: 3, c: 4 }
+    , transport: function( entry ){
+        assert.equal( entry.data.a, 1 );
+        assert.equal( entry.data.b, 3 );
+        assert.equal( entry.data.c, 4 );
+      }
+    });
+
+    loggerA.info('ohai');
+    loggerB.info('ohai');
+  });
 });
