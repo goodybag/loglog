@@ -133,8 +133,8 @@ __Example:__
 
 ```javascript
 // Hi, I am a doge and I am 3 years old. Goodybye {
-  a: true
-}
+//   a: true
+// }
 logger.info('Hi, I am a %s and I am %s years old.', 'doge', 3, 'Goodbye', { a: true });
 ```
 
