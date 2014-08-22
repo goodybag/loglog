@@ -80,6 +80,7 @@ The following properties are inherited:
 
 * [parents](#parents) (via appends parent.component to parent.parents)
 * [options.data](#options)
+* [options.transport](#options)
 * [component](#component) (if the component isn't specified)
 * [transport](#transport)
 
@@ -126,13 +127,15 @@ app.use( function( req, res, next ){
 
 Passes all non-object parameters to `util.format` and returns the result as `entry.message` to the [transport](transports). Any objects will get mixed into `entry.data`. Sets `entry.level` to `info`. Comes with default `timestamp`, `uuid`, `component`, and `parents` properties.
 
+_Note: Any objects you pass to info gets embedded into an object called `data` on [entry](#the-entry-object)._
+
 __Example:__
 
 ```javascript
 // Hi, I am a doge and I am 3 years old. Goodybye {
   a: true
 }
-logger.info('Hi, I am a %s and I %s years old.', 'doge', 3, 'Goodbye', { a: true });
+logger.info('Hi, I am a %s and I am %s years old.', 'doge', 3, 'Goodbye', { a: true });
 ```
 
 #### ```warn( ... )```
@@ -164,3 +167,41 @@ Options object passed to the logger [create](#create-component-options-).
 #### ```inheritableOptions```
 
 List of [options](#options) keys that will be inherited during [create](#create-component-options-).
+
+__Default:__
+
+```javascript
+['parent', 'parents', 'transport']
+```
+
+### Transports
+
+Transports are just functions that receive an `entry` object. All transports are available on the root module under the `transports` key. The only one bundled with loglog is `transports.console` and it is the default transport.
+
+__Create your own transport:__
+
+```javascript
+var logger = require('loglog').create('App', {
+  transport: function( entry ){
+    console.log( entry.level, entry.message, entry.data );
+  }
+});
+
+// Info Ohai { a: 1 }
+logger.info('Ohai', { a: 1 })
+```
+
+#### The Entry Object
+
+All entry objects will come with the following properties:
+
+```javascript
+{
+  timestamp: new Date()
+, uuid:      uuid()
+, component: this.component
+, parents:   this.options.parents
+, message:   '...'
+, data:      { /* ... */ }
+}
+```
