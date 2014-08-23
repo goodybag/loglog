@@ -80,9 +80,8 @@ The following properties are inherited:
 
 * [parents](#parents) (via appends parent.component to parent.parents)
 * [options.data](#options)
-* [options.transport](#options)
+* [options.transports](#options)
 * [component](#component) (if the component isn't specified)
-* [transport](#transport)
 
 __Example:__
 
@@ -171,12 +170,14 @@ List of [options](#options) keys that will be inherited during [create](#create-
 __Default:__
 
 ```javascript
-['parent', 'parents', 'transport']
+['parent', 'parents', 'transports']
 ```
 
 ### Transports
 
 Transports are just functions that receive an `entry` object. All transports are available on the root module under the `transports` key. The only one bundled with loglog is `transports.console` and it is the default transport.
+
+All exported transports on `loglog.transports` are factory functions that return a function of the correct signature. Call them with: ```loglog.transports.transportName({ /* options */ })```
 
 __Create your own transport:__
 
@@ -191,6 +192,28 @@ var logger = require('loglog').create('App', {
 logger.info('Ohai', { a: 1 })
 ```
 
+__`transport` vs `transports`:__
+
+It doesn't make a whole lot of sense to only have logging transport. The primary method to setting your transports on a logger is through the `transports` property. This is simply an array of transports. The `transport` option is just sugar for the API for simple loggers. If you set it to a single function, then it will override all transports on the logger with `[ options.transport ]`.
+
+```javascript
+var loglog = require('loglog');
+
+// Log to console, file rotator, mongodb, and papertrail
+var logger = loglog.create('App', {
+  transports: [
+    loglog.transports.console()
+  , loglog.transports.file({ dir: './logs' })
+  , require('loglog-mongodb')({
+      connection: 'mongodb://localhost/logs'
+    })
+  , require('loglog-papertrail')({
+      token: '...'
+    })
+  ]
+});
+```
+
 #### The Entry Object
 
 All entry objects will come with the following properties:
@@ -203,5 +226,29 @@ All entry objects will come with the following properties:
 , parents:   this.options.parents
 , message:   '...'
 , data:      { /* ... */ }
+}
+```
+
+#### Transport: Console
+
+Outputs logs to the console
+
+__Usage:__
+
+```javascript
+var logger = loglog.create('App', {
+  transport: loglog.transports.console({ /* options */ })
+});
+```
+
+__Options and defaults:__
+
+```javascript
+{
+  // Number of lines of JSON before we truncate
+  // Set to -1 for no truncation
+  maxDataLines: 5
+  // String to use when we truncate JSON
+, truncationStr: '...'
 }
 ```

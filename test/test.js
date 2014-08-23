@@ -121,4 +121,62 @@ describe( 'Inheritance', function(){
     loggerA.info('ohai');
     loggerB.info('ohai');
   });
+
+  describe ('Multiple transports', function(){
+    it ('.create with multiple transports', function(){
+      var i = 0;
+      var loggerA = loglog.create('Child A', {
+        transports: [
+          function( entry ){ assert.equal( i++, 0 ); }
+        , function( entry ){ assert.equal( i++, 1 ); }
+        , function( entry ){ assert.equal( i++, 2 ); }
+        ]
+      });
+
+      loggerA.info('ohai');
+
+      assert.equal( i, 3 );
+    });
+
+    it ('.create with multiple transports inherited', function(){
+      var i = 0;
+      var loggerA = loglog.create('Child A', {
+        transports: [
+          function( entry ){ i++; }
+        , function( entry ){ i++; }
+        , function( entry ){ i++; }
+        ]
+      });
+
+      var loggerB = loggerA.create('Child B');
+
+      loggerA.info('ohai');
+      loggerB.info('ohai');
+
+      assert.equal( i, 6 );
+    });
+
+    it ('.create with multiple transports overridden', function(){
+      var i = 0;
+      var loggerA = loglog.create('Child A', {
+        transports: [
+          function( entry ){ i++; }
+        , function( entry ){ i++; }
+        , function( entry ){ i++; }
+        ]
+      });
+
+      var loggerB = loggerA.create('Child B', {
+        transports: [
+          function( entry ){ i--; }
+        , function( entry ){ i--; }
+        ]
+      });
+
+      loggerA.info('ohai');
+      loggerB.info('ohai');
+
+      assert.equal( i, 1 );
+    });
+  });
 });
