@@ -73,6 +73,8 @@ __Options:__
 , data Object
   // List of properties that child loggers receive in `data`
 , childrenReceive String[]
+  // List of logger CIDs from parent loggers
+, parentOriginCids Int[]
 }
 ```
 
@@ -170,7 +172,7 @@ List of [options](#options) keys that will be inherited during [create](#create-
 __Default:__
 
 ```javascript
-['parent', 'parents', 'transports']
+['parent', 'parents', 'transports', 'parentOriginCids']
 ```
 
 ### Transports
@@ -220,12 +222,16 @@ All entry objects will come with the following properties:
 
 ```javascript
 {
-  timestamp: new Date()
-, uuid:      uuid()
-, component: this.component
-, parents:   this.options.parents
-, message:   '...'
-, data:      { /* ... */ }
+  timestamp:        new Date()
+, uuid:             uuid()
+, component:        this.component
+, parents:          this.options.parents
+, message:          '...'
+, data:             { /* ... */ }
+  // Instance ID of logger
+, originCid:        this.cid
+  // Parent loggers instance IDs
+, parentOriginCids: this.options.parentOriginCids
 }
 ```
 

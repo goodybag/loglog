@@ -59,6 +59,10 @@ describe( 'Inheritance', function(){
     assert.deepEqual( loggerA.parents, [] );
     assert.deepEqual( loggerB.parents, ['Child A'] );
     assert.deepEqual( loggerC.parents, ['Child A', 'Child B'] );
+
+    assert.deepEqual( loggerA.options.parentOriginCids, [] );
+    assert.deepEqual( loggerB.options.parentOriginCids, [loggerA.cid] );
+    assert.deepEqual( loggerC.options.parentOriginCids, [loggerA.cid, loggerB.cid] );
   });
 
   it ('.create with default data', function(){
