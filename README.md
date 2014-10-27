@@ -258,3 +258,13 @@ __Options and defaults:__
 , truncationStr: '...'
 }
 ```
+
+## Building the browser version
+
+This is really dumb for now.
+
+```
+grunt browser
+```
+
+Writes to `dist/loglog-browser.js'
