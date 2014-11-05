@@ -8,6 +8,12 @@ __Install__
 npm install loglog
 ```
 
+Or
+
+```
+bower install loglog
+```
+
 __Basic Usage:__
 
 ```javascript
