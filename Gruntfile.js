@@ -1,9 +1,12 @@
 module.exports = function( grunt ){
+  var pkg = grunt.file.readJSON('package.json');
+
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-shell');
 
   var config = {
-    pkg: grunt.file.readJSON('package.json')
+    pkg: pkg
 
   , watch: {
       jshint: {
@@ -27,6 +30,13 @@ module.exports = function( grunt ){
         }
       }
     }
+
+  , shell: {
+      build: {
+        options: { stdout: true }
+      , command: './node_modules/.bin/browserify -e browser-index.js > dist/loglog-browser.js'
+      }
+    }
   };
 
   config.watch.jshint.files = config.watch.jshint.files.concat(
@@ -38,5 +48,10 @@ module.exports = function( grunt ){
   grunt.registerTask( 'default', [
     'jshint'
   , 'watch'
+  ]);
+
+  grunt.registerTask( 'browser', [
+    'jshint'
+  , 'shell:build'
   ]);
 };

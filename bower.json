@@ -1,0 +1,24 @@
+{
+  "name": "loglog",
+  "main": "dist/loglog-browser.js",
+  "version": "0.2.0",
+  "homepage": "https://github.com/goodybag/loglog",
+  "authors": [
+    "John Fawcett <jrf0110@gmail.com>"
+  ],
+  "description": "Hierarchical logging with a clean API for node and the browser",
+  "keywords": [
+    "Logging"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "loglog-dev-tools": "~1.0.7"
+  }
+}
