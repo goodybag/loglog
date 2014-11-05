@@ -17,5 +17,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "loglog-dev-tools": "~1.0.7"
+  }
 }
