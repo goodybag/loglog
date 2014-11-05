@@ -27,8 +27,7 @@
   "dependencies": {
     "cli-color": "^0.3.2",
     "loglog": "^0.2.0",
-    "loglog-dev-tools": "^1.0.7",
-    "node-uuid": "^1.4.1"
+    "loglog-dev-tools": "^1.0.7"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
