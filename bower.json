@@ -1,7 +1,7 @@
 {
   "name": "loglog",
   "main": "dist/loglog-browser.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/goodybag/loglog",
   "authors": [
     "John Fawcett <jrf0110@gmail.com>"
