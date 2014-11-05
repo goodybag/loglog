@@ -1,6 +1,6 @@
 {
   "name": "loglog",
-  "main": "dist/loglog-browser.js",
+  "main": "browser-index.js",
   "version": "0.2.1",
   "homepage": "https://github.com/goodybag/loglog",
   "authors": [
