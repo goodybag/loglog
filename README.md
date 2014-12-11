@@ -50,6 +50,16 @@ logger = logger.create('App');
 logger.info('Starting...');
 ```
 
+__Server-side logs in dev tools__
+
+![http://storage.j0.hn/loglog-requests.png](http://storage.j0.hn/loglog-requests.png)
+
+__Query your logs from the console__
+
+![http://storage.j0.hn/query-logs.gif](http://storage.j0.hn/query-logs.gif)
+
+Checkout [Loglog Server](https://github.com/goodybag/loglog-server) to get that setup!
+
 ## Docs
 
 Loglog is all about hierarchy. You can always inherit from a logger by calling [.create](#create-component-options-) on the logging instance. In fact, the loglog module actually exports a base instance of itself, so you can start using it right away with defaults (with no component specified). That means the loglog module API is identical to logger instance API. Yay!
@@ -186,6 +196,10 @@ __Default:__
 Transports are just functions that receive an `entry` object. All transports are available on the root module under the `transports` key. The only one bundled with loglog is `transports.console` and it is the default transport.
 
 All exported transports on `loglog.transports` are factory functions that return a function of the correct signature. Call them with: ```loglog.transports.transportName({ /* options */ })```
+
+* [Console](./transports/console.js)
+* [MongoDB](/goodybag/loglog-mongodb)
+* [Chrome Dev Tools](/goodybag/loglog-dev-tools)
 
 __Create your own transport:__
 
