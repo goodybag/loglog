@@ -1,6 +1,6 @@
 # Loglog - Hierarchical logging
 
-> Loglog is an extensible, hierarchical logger with sensible transport methods for node.js and _soon_ the browser
+> Loglog is an extensible, hierarchical logger with sensible transport methods for node.js and the browser
 
 __Install__
 
