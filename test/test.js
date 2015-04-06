@@ -28,6 +28,12 @@ describe( 'Basic Methods', function(){
     logger.error('Test!');
   });
 
+  it ('.debug', function(){
+    var logger = getAssertLoggerOfLevel('debug');
+    assert.equal( typeof logger.debug, 'function' );
+    logger.debug('Test!');
+  });
+
   it ('.info with formatted string', function(){
     var loggerA = loglog.create({
       transport: function( entry ){
