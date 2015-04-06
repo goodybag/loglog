@@ -91,6 +91,8 @@ __Options:__
 , childrenReceive String[]
   // List of logger CIDs from parent loggers
 , parentOriginCids Int[]
+, // `True` to log debugs, `False` to ignore
+, debug Boolean (Default: true)
 }
 ```
 
@@ -188,7 +190,7 @@ List of [options](#options) keys that will be inherited during [create](#create-
 __Default:__
 
 ```javascript
-['parent', 'parents', 'transports', 'parentOriginCids']
+['parent', 'parents', 'transports', 'parentOriginCids', 'debug']
 ```
 
 ### Transports
