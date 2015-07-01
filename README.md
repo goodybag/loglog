@@ -157,7 +157,7 @@ __Example:__
 logger.info('Hi, I am a %s and I am %s years old.', 'doge', 3, 'Goodbye', { a: true });
 ```
 
-#### ```warn( ... )```
+#### ```debug( ... )```
 
 Same as [info](#info--) but `entry.level` set to `debug`. Transports should ignore outputting if not in debug mode.
 
