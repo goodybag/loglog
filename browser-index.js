@@ -14,4 +14,6 @@ define( function( require, exports, module ){
   module.exports.Logger = Logger;
 
   module.exports.transports = {};
+
+  return module.exports;
 });
