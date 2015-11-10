@@ -26,7 +26,7 @@
   "homepage": "https://github.com/goodybag/loglog",
   "dependencies": {
     "cli-color": "^0.3.2",
-    "loglog": "^0.2.0",
+    "lodash": "^3.10.1",
     "loglog-dev-tools": "^1.0.7"
   },
   "devDependencies": {
