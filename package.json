@@ -1,6 +1,6 @@
 {
   "name": "loglog",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Hierarchical logging with a clean API for node and the browser",
   "main": "index.js",
   "directories": {
