@@ -50,14 +50,22 @@ describe( 'Basic Methods', function(){
     loggerA.info( 'My name is %s and I am %s.', 'Bob', 42 );
     loggerB.info( 'My name is %s and I am a %s.', 'Bob', 'Cat', 'I am super cool.' );
   });
+});
 
+describe('Regression', function(){
   it ('Logging circular json structure to console should not throw an error', function(){
     var logger = loglog.create();
     var obj = {};
     obj.self = obj;
     logger.info( obj );
   });
+
+  it ('.info should be able to log a non-string literal as the first argument', function(){
+    var logger = loglog.create();
+    logger.info(123);
+  });
 });
+
 
 describe( 'Inheritance', function(){
   it ('.create', function(){
